@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600&display=swap" rel="stylesheet">
+  <title>happy graduate shakira | By wahid</title>
+  <style>
+    html, body {
+      background: #000;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden; 
+      position: fixed; 
+      font-family: 'Dosis', sans-serif;
+    }
+
+    #ui {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      transform-style: preserve-3d;
+    }
+
+    .love {
+      position: absolute;
+      top: 0;
+      left: 0;
+      margin: -225px 0 0 -265px; 
+    }
+
+    .love_word {
+      color: #ea80b0;
+      font-size: 1.1rem;
+      transform: translateY(-100%) rotateZ(-30deg);
+      font-family: "Dosis", sans-serif;
+      text-shadow: 0 0 10px #fff;
+      letter-spacing: 2px;
+      white-space: nowrap;
+    }
+
+    .love_horizontal {
+      animation: horizontal 10000ms infinite alternate ease-in-out;
+    }
+
+    .love_vertical {
+      animation: vertical 20000ms infinite linear;
+    }
+
+    @keyframes horizontal {
+      from { transform: translateX(0px); }
+      to { transform: translateX(450px); }
+    }
+
+    @keyframes vertical {
+      0% { transform: translateY(180px); }
+      10% { transform: translateY(45px); }
+      15% { transform: translateY(4.5px); }
+      18% { transform: translateY(0px); }
+      20% { transform: translateY(4.5px); }
+      22% { transform: translateY(34.61538px); }
+      24% { transform: translateY(64.28571px); }
+      25% { transform: translateY(112.5px); }
+      26% { transform: translateY(64.28571px); }
+      28% { transform: translateY(34.61538px); }
+      30% { transform: translateY(4.5px); }
+      32% { transform: translateY(0px); }
+      35% { transform: translateY(4.5px); }
+      40% { transform: translateY(45px); }
+      50% { transform: translateY(180px); }
+      71% { transform: translateY(428.57143px); }
+      72.5% { transform: translateY(441.17647px); }
+      75% { transform: translateY(450px); }
+      77.5% { transform: translateY(441.17647px); }
+      79% { transform: translateY(428.57143px); }
+      100% { transform: translateY(180px); }
+    }
+
+    /* Music Button Styles */
+    .music-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #ea80b0 0%, #ff6b9d 100%);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px rgba(234, 128, 176, 0.5);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .music-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px rgba(234, 128, 176, 0.8);
+    }
+
+    .music-btn:active {
+      transform: scale(0.95);
+    }
+
+    .music-btn svg {
+      width: 24px;
+      height: 24px;
+      fill: white;
+    }
+
+    .music-btn.playing {
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 20px rgba(234, 128, 176, 0.5); }
+      50% { box-shadow: 0 0 40px rgba(234, 128, 176, 0.9); }
+      100% { box-shadow: 0 0 20px rgba(234, 128, 176, 0.5); }
+    }
+
+    .song-info {
+      position: fixed;
+      bottom: 80px;
+      left: 20px;
+      color: #ea80b0;
+      font-size: 0.9rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      text-shadow: 0 0 10px rgba(234, 128, 176, 0.5);
+      pointer-events: none;
+      max-width: 200px;
+      line-height: 1.4;
+    }
+
+    .song-info.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="ui"></div>
+
+  <!-- Music Button -->
+  <button class="music-btn" id="musicBtn" title="Putar Musik - Dewa 19">
+    <svg id="playIcon" viewBox="0 0 24 24">
+      <path d="M8 5v14l11-7z"/>
+    </svg>
+    <svg id="pauseIcon" viewBox="0 0 24 24" style="display: none;">
+      <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+    </svg>
+  </button>
+
+  <div class="song-info" id="songInfo">🎵 Dewa 19<br>Aku Milikmu</div>
+
+  <!-- Audio Element with GitHub Raw Link -->
+  <audio id="audioPlayer" loop>
+    <source src="https://raw.githubusercontent.com/wahidin08/Music/05121ca431a43848945496b30a1a06e18f2c76e7/Dewa%2019%20-%20Aku%20Milikmu%20_%20Lirik%20Lagu.mp3" type="audio/mpeg">
+    Browser kamu tidak mendukung audio.
+  </audio>
+
+  <script>
+    const container = document.getElementById('ui');
+    const totalElements = 100; 
+    const delayStep = -300; 
+
+    for (let i = 0; i < totalElements; i++) {
+      const loveDiv = document.createElement('div');
+      loveDiv.classList.add('love');
+
+      const horizontalDiv = document.createElement('div');
+      horizontalDiv.classList.add('love_horizontal');
+
+      const verticalDiv = document.createElement('div');
+      verticalDiv.classList.add('love_vertical');
+
+      const wordDiv = document.createElement('div');
+      wordDiv.classList.add('love_word');
+      wordDiv.textContent = "happy graduate mila🤍";
+
+      const delayTime = (i * delayStep) + 'ms';
+      horizontalDiv.style.animationDelay = delayTime;
+      verticalDiv.style.animationDelay = delayTime;
+
+      verticalDiv.appendChild(wordDiv);
+      horizontalDiv.appendChild(verticalDiv);
+      loveDiv.appendChild(horizontalDiv);
+      container.appendChild(loveDiv);
+    }
+
+    // Music Player Logic
+    const musicBtn = document.getElementById('musicBtn');
+    const audioPlayer = document.getElementById('audioPlayer');
+    const playIcon = document.getElementById('playIcon');
+    const pauseIcon = document.getElementById('pauseIcon');
+    const songInfo = document.getElementById('songInfo');
+    let isPlaying = false;
+
+    musicBtn.addEventListener('click', () => {
+      if (isPlaying) {
+        audioPlayer.pause();
+        playIcon.style.display = 'block';
+        pauseIcon.style.display = 'none';
+        musicBtn.classList.remove('playing');
+        songInfo.classList.remove('show');
+      } else {
+        audioPlayer.play().then(() => {
+          playIcon.style.display = 'none';
+          pauseIcon.style.display = 'block';
+          musicBtn.classList.add('playing');
+          songInfo.classList.add('show');
+        }).catch(e => {
+          console.log('Audio play failed:', e);
+          alert('Tidak bisa memutar audio. Pastikan repository GitHub public dan file MP3 valid.');
+        });
+      }
+      isPlaying = !isPlaying;
+    });
+
+    // Update UI when audio ends or errors
+    audioPlayer.addEventListener('ended', () => {
+      isPlaying = false;
+      playIcon.style.display = 'block';
+      pauseIcon.style.display = 'none';
+      musicBtn.classList.remove('playing');
+      songInfo.classList.remove('show');
+    });
+
+    audioPlayer.addEventListener('error', (e) => {
+      console.log('Audio error:', e);
+      isPlaying = false;
+      playIcon.style.display = 'block';
+      pauseIcon.style.display = 'none';
+      musicBtn.classList.remove('playing');
+      alert('Error memuat audio. Cek koneksi atau link GitHub.');
+    });
+  </script>
+</body>
+</html>
